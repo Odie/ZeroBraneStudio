@@ -9,6 +9,8 @@ local menuBar = frame.menuBar
 
 local findReplace = ide.findReplace
 
+local quicknav = require("src.editor.quicknav")
+
 local findMenu = wx.wxMenu{
   { ID_FIND, "&Find\tCtrl-F", "Find the specified text" },
   { ID_FINDNEXT, "Find &Next\tF3", "Find the next occurrence of the specified text" },
@@ -19,6 +21,7 @@ local findMenu = wx.wxMenu{
   { ID_REPLACE_IN_FILES, "Re&place In Files\tCtrl-Shift-R", " Replace specified text in files"},
   { },
   { ID_GOTOLINE, "&Goto line\tCtrl-G", "Go to a selected line" },
+  { ID_QUICKNAV, "Goto &Anything\tCtrl-T", "Jump to a file or function"},
   { },
   { ID_SORT, "&Sort", "Sort selected lines"}}
 menuBar:Append(findMenu, "&Search")
@@ -76,6 +79,8 @@ frame:Connect(ID_GOTOLINE, wx.wxEVT_COMMAND_MENU_SELECTED,
     end
   end)
 frame:Connect(ID_GOTOLINE, wx.wxEVT_UPDATE_UI, OnUpdateUISearchMenu)
+
+frame:Connect(ID_QUICKNAV, wx.wxEVT_COMMAND_MENU_SELECTED, quicknav.show)
 
 frame:Connect(ID_SORT, wx.wxEVT_COMMAND_MENU_SELECTED,
   function (event)

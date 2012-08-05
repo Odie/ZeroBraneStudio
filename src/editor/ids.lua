@@ -36,6 +36,7 @@ ID_REPLACE          = NewID()
 ID_FIND_IN_FILES    = NewID()
 ID_REPLACE_IN_FILES = NewID()
 ID_GOTOLINE         = NewID()
+ID_QUICKNAV         = NewID()
 ID_SORT             = NewID()
 -- Project/Debug menu
 ID_TOGGLEBREAKPOINT = NewID()

@@ -8,7 +8,7 @@ package.cpath = (iswindows
   and 'bin/?.dll;bin/clibs/?.dll;'
    or 'bin/clibs/?.dylib;bin/lib?.dylib;bin/?.so;bin/clibs/?.so;')
   .. package.cpath
-package.path  = 'lualibs/?.lua;lualibs/?/?.lua;lualibs/?/init.lua;lualibs/?/?/?.lua;lualibs/?/?/init.lua;'
+package.path  = '?.lua;lualibs/?.lua;lualibs/?/?.lua;lualibs/?/init.lua;lualibs/?/?/?.lua;lualibs/?/?/init.lua;'
               .. package.path
 
 require("wx")
