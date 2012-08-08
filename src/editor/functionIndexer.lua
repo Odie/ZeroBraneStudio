@@ -285,7 +285,7 @@ end
 -----------------------------------------------------------------------------------------
 --			Index Searching
 -----------------------------------------------------------------------------------------
-function M.stringScore(candidate, abbreviation, offset)
+local function stringScoreHelper(candidate, abbreviation, offset)
 	local offset = offset or 0
 	local abbrLen = abbreviation:len()
 	
@@ -307,7 +307,7 @@ function M.stringScore(candidate, abbreviation, offset)
 		
 		-- If we weren't able to match that much of the string, 
 		-- continue trying with fewer characters
-		if index and index + abbrLen <= candidate:len() + offset then
+		if index and index-1 + abbrLen <= candidate:len() + offset then
 			-- If we are able to match part of the string,
 			-- let's see if we can match another part
 			local next_string       = candidate:sub(index+sub_abbreviation:len())
@@ -319,7 +319,7 @@ function M.stringScore(candidate, abbreviation, offset)
 				next_abbreviation = abbreviation:sub(i+1)
 			end
 
-			local remaining_score   = M.stringScore(next_string, next_abbreviation, offset+index)
+			local remaining_score   = stringScoreHelper(next_string, next_abbreviation, offset+index)
 
 			if remaining_score > 0 then 
 				-- Fewer character matches have a higher score
@@ -347,6 +347,10 @@ function M.stringScore(candidate, abbreviation, offset)
 		end
 	end
 	return 0
+end
+
+function M.stringScore(candidate, abbreviation, offset)
+	return stringScoreHelper(candidate:lower(), abbreviation:lower(), offset)
 end
 
 -- Returns a flatten index we can use to search through both filenames and function names
